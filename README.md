@@ -3,7 +3,8 @@
 A Clojure library intended to provide an easier interface to reading and writing
 metadata associated with image files. Really just wraps a small part of
 [org.apache.commons/commons-imaging](http://commons.apache.org/proper/commons-imaging/)
-to achieve this.
+to achieve this. NOTE: `commons-imaging` is not fully developed and is not
+producing official releases yet, so tread carefully when using this library.
 
 Current state is far from thorough, code has only been evaluated with a small
 number of JPEG files.
