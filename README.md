@@ -31,7 +31,7 @@ to copy an image with an updated metadata set to a new file.
         '[org.apache.commons.imaging.formats.tiff.constants
            TiffDirectoryConstants
            TiffTagConstants])
-    (let [input-file (java.io.File. "/home/oliver/dev/clj-exif/resources/pic.geo.jpg")
+    (let [input-file (java.io.File. "/path/to/file.jpg")
           output-file (java.io.File. "/tmp/output.jpg")
           metadata (exif/get-metadata input-file)
           ;; output-set is a writeable copy of the data retrieve from input-file.
@@ -41,6 +41,11 @@ to copy an image with an updated metadata set to a new file.
                          TiffTagConstants/TIFF_TAG_MAKE
                          ["this is a new value"])
       (exif/copy-file-with-new-metadata input-file output-file output-set))
+
+## TODO
+
+- Don't rely on a snapshot release of commons-imaging.
+- Evaluate different input formats and file types.
 
 ## License
 
