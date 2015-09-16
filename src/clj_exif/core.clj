@@ -8,7 +8,7 @@
             [clojure.pprint :refer :all])
   (:import [org.apache.commons.imaging Imaging]
            [org.apache.commons.imaging.formats.tiff.write TiffOutputSet]
-           [org.apache.commons.imaging.formats.tiff.constants AllTagConstants]
+           [org.apache.commons.imaging.formats.tiff TiffTags]
            [org.apache.commons.imaging.formats.tiff.constants ExifTagConstants]
            [org.apache.commons.imaging.formats.tiff.constants TiffTagConstants]
            [org.apache.commons.imaging.formats.tiff.constants TiffDirectoryConstants]
