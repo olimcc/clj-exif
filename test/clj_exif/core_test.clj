@@ -24,7 +24,7 @@
 
 (deftest write-exif-metadata
   (testing "write exif"
-    (let [output-file (File/createTempFile "/tmp/output" ".jpg")]
+    (let [output-file (File/createTempFile "output" ".jpg")]
     (try
       (let [input-file (jio/as-file (jio/resource "pic.geo.jpg"))
             metadata (exif/get-metadata input-file)
