@@ -80,20 +80,27 @@
                                    output-set))))
 (defn get-tag-info
   [output-dir tag]
-  (-> output-dir
-      (.findField tag)
-      .tagInfo))
+  (let [field (-> output-dir
+                  (.findField tag))]
+    (if field
+      (.tagInfo field)
+      (throw (IllegalArgumentException.
+               (format "Tag %s does not exist in metadata" tag))))))
 
 (defn update-value
   "Update an output set with a new value for a dir+tag combination.
   Performs an in-place modification."
   [output-set directory tag values]
   (let [output-dir (get-output-directory output-set directory)
-        tag-info (get-tag-info output-dir tag)
-        new-value (into-array (-> values first class) values)]
-    (doto output-dir
-      (.removeField tag-info)
-      (.add tag-info new-value))))
+        new-value (into-array (-> values first class) values)
+        tag-info (try (get-tag-info output-dir tag)
+                      (catch IllegalArgumentException e
+                        nil))]
+    (if tag-info
+      (doto output-dir
+        (.removeField tag-info)
+        (.add tag-info new-value))
+      (.add output-dir tag new-value))))
 
 (defn get-value
   [metadata tag-info]

@@ -24,7 +24,7 @@
 (let [input-file (jio/as-file (jio/resource "pic.geo.jpg"))
       output-file (File. "/tmp/output.jpg")
       metadata (exif/get-metadata input-file)
-      ;; output-set is a writeable copy of the data retrieve from input-file.
+      ;; output-set is a writeable copy of the data retrieved from input-file.
       output-set (exif/get-output-set metadata)]
   (exif/update-value output-set
                      TiffDirectoryConstants/DIRECTORY_TYPE_ROOT
@@ -32,11 +32,23 @@
                      ["this is a new value"])
   (exif/copy-file-with-new-metadata input-file output-file output-set))
 
+;; write a new property, 'Artist'
+(let [input-file (jio/as-file (jio/resource "pic.geo.jpg"))
+      output-file (File. "/tmp/output.jpg")
+      metadata (exif/get-metadata input-file)
+      ;; output-set is a writeable copy of the data retrieved from input-file.
+      output-set (exif/get-output-set metadata)]
+  (exif/update-value output-set
+                     TiffDirectoryConstants/DIRECTORY_TYPE_ROOT
+                     TiffTagConstants/TIFF_TAG_ARTIST
+                     ["Fancy Artist"])
+  (exif/copy-file-with-new-metadata input-file output-file output-set))
+
 ;; update the longitude co-ordinate
 (let [input-file (jio/as-file (jio/resource "pic.geo.jpg"))
       output-file (File. "/tmp/output.jpg")
       metadata (exif/get-metadata input-file)
-      ;; output-set is a writeable copy of the data retrieve from input-file.
+      ;; output-set is a writeable copy of the data retrieved from input-file.
       output-set (exif/get-output-set metadata)]
   (exif/update-value output-set
                      TiffDirectoryConstants/DIRECTORY_TYPE_GPS

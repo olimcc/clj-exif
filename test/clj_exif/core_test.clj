@@ -23,7 +23,7 @@
         (is (= (long (first lng)) 121))))))
 
 (deftest write-exif-metadata
-  (testing "write exif"
+  (testing "update existing exif property"
     (let [output-file (File/createTempFile "output" ".jpg")]
     (try
       (let [input-file (jio/as-file (jio/resource "pic.geo.jpg"))
@@ -37,5 +37,20 @@
         (exif/copy-file-with-new-metadata input-file output-file output-set)
         (is  (= (-> output-file exif/get-metadata exif/read (get-in ["Root" "Make"]))
                 rand-str)))
-      (finally (.delete output-file))))))
+      (finally (.delete output-file)))))
+  (testing "write new exif property"
+    (let [output-file (File/createTempFile "output" ".jpg")]
+      (try
+        (let [input-file (jio/as-file (jio/resource "pic.geo.jpg"))
+              metadata (exif/get-metadata input-file)
+              output-set (exif/get-output-set metadata)
+              rand-str (str (rand-int 10000))]
+          (exif/update-value output-set
+                             TiffDirectoryConstants/DIRECTORY_TYPE_ROOT
+                             TiffTagConstants/TIFF_TAG_ARTIST
+                             [rand-str])
+          (exif/copy-file-with-new-metadata input-file output-file output-set)
+          (is  (= (-> output-file exif/get-metadata exif/read (get-in ["Root" "Artist"]))
+                  rand-str)))
+        (finally (.delete output-file))))))
 

@@ -1,4 +1,4 @@
-(defproject clj-exif "0.1"
+(defproject clj-exif "0.2"
   :description "Read/Write metadata from image files in Clojure."
   :url "https://github.com/olimcc/clj-exif"
   :license {:name "Eclipse Public License"
